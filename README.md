@@ -1,16 +1,66 @@
-# React + Vite
+# Sos100 Bibliotek – Frontend (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Vad applikationen gör
 
-Currently, two official plugins are available:
+Det här är en liten **SPA** i **React + Vite** som visar lån från vårt API.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+På sidan:
 
-## React Compiler
+- Jag hämtar lån från API:t och visar dem som kort i ett grid.
+- Jag visar loading-state medan datan hämtas och ett felmeddelande om något går fel.
+- Jag visar bok (titel) och om lånet är **Utlånad/Återlämnad** (baserat på `isReturned`).
+  - Jag mappar `isReturned=true` → Återlämnad och `false` → Utlånad.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Hur man kör applikationen (koppling mot API)
 
-## Expanding the ESLint configuration
+### Förutsättningar
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Node.js (LTS)
+
+### Starta frontenden
+
+```bash
+      npm install   # installerar bibliotek
+      npm run dev   # startar utvecklingsservern
+```
+
+Frontend kör på `http://localhost:5173`.
+
+### API-koppling
+
+Jag styr vilken backend som används med:
+
+- `VITE_API_BASE_URL`
+
+I detta projekt använder jag `/api` som standard lokalt, och Vite proxar det vidare till backend.
+
+Skapa en `.env` i projektroten:
+
+```env
+VITE_API_BASE_URL=/api
+```
+
+Anropet som görs är:
+
+- `GET {VITE_API_BASE_URL}/loan`
+
+Om API:t kräver nyckel kan du även sätt:
+
+```env
+VITE_API_KEY=din_nyckel_här
+```
+
+Den skickas då automatiskt med som `X-Api-Key` i varje anrop (Axios-interceptor), vilket matchar säkerhetsfiltret i LoanAPI.
+
+## AI-användning (kort)
+
+Jag använde AI som stöd för att:
+
+- få förslag på struktur (API-service + hook + komponenter)
+- förbättra fel-/loading-hantering och README-upplägg
+
+Sedan anpassade jag allt till mitt projekt (våra endpoints, mina fält som `bookTitle`/`isReturned`, och min styling).
+
+## Övrigt
+
+- **Axios** används för API-anrop.

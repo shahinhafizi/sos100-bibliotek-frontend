@@ -4,4 +4,15 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      // Azure-only
+      '/api': {
+        target:
+          'https://app-sos100-loanservice-dyg8gjf9csfpd6f5.norwayeast-01.azurewebsites.net',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
 })
