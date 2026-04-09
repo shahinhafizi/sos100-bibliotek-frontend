@@ -52,6 +52,8 @@ VITE_API_KEY=din_nyckel_här
 
 Den skickas då automatiskt med som `X-Api-Key` i varje anrop (Axios-interceptor), vilket matchar säkerhetsfiltret i LoanAPI.
 
+
+Standardnyckeln för testning mot mitt Azure-API är: ShahinIsGreat123
 ## AI-användning (kort)
 
 Jag använde AI som stöd för att:
